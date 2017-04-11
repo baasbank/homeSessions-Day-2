@@ -23,5 +23,5 @@ API used; http://www.omdbapi.com/
 + Clone the repository
 + Navigate to the root folder
 + Run  `npm install`
-+ Run  `node index.js`
++ Run  `node API/index.js`
 + Follow on-screen instructions
