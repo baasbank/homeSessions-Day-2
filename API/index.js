@@ -57,3 +57,60 @@ function findBook() {
             });
         }); 
 }
+
+function findMovie() {
+    inquirer.prompt([ {
+            type: 'input',
+            name: 'movietitle',
+            message: 'What is the title of the movie you are searching for?  '
+        },
+        
+        ]).then(function (answer) {
+            //Reformat movie title to fit query
+            var movietitle    = answer.movietitle.split(/\s+/).join('+');
+            var link = 'http://www.omdbapi.com/?t=' + movietitle + '&plot=full';
+
+            var status = new Spinner('Getting requested information, please wait...');
+            status.start();
+            request(link, function (err, res, data){
+                if (err) {
+                    return console.log(err);
+                } 
+
+                data = JSON.parse(data);
+                status.stop();
+
+                //Exit if nothing was found
+                if (data === '') {
+                    console.log('\nNothing found.\n');
+                    return exitApp();
+                } 
+
+                //Display movie details
+                console.log(chalk.green('\n Here is your movie information: '));
+                console.log(chalk.yellow('Title: ') + data.Title);
+                console.log(chalk.yellow('Rated: ') + data.Rated);
+                console.log(chalk.yellow('Runtime: ') + data.Runtime);
+                console.log(chalk.yellow('Year: ') + data.Year);
+                console.log(chalk.yellow('Released: ') + data.Released);
+                console.log(chalk.yellow('Genre: ') + data.Genre);
+                console.log(chalk.yellow('Director: ') + data.Director);
+                console.log(chalk.yellow('Writer: ') + data.Writer);
+                console.log(chalk.yellow('Actors: ') + data.Actors);
+                console.log(chalk.yellow('Plot: ') + data.Plot);
+                console.log(chalk.yellow('Language: ') + data.Language);
+                console.log(chalk.yellow('Country: ') + data.Country); 
+                console.log(chalk.yellow('Awards: ') + data.Awards);
+                console.log(chalk.yellow('Poster: ') + chalk.green(data.Poster) + '\n');
+                console.log(chalk.yellow('Type: ') + data.Type);
+                console.log(chalk.yellow('DVD: ') + data.DVD);
+                console.log(chalk.yellow('BoxOffice: ') + data.BoxOffice);
+                console.log(chalk.yellow('Production: ') + data.Production);
+                console.log(chalk.yellow('Website: ') + chalk.green(data.Website) + '\n'); 
+                
+                exitApp();                 
+            });
+        });
+                
+          
+}
