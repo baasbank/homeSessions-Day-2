@@ -6,3 +6,10 @@ var request = require('request'),
     inquirer    = require('inquirer'),
     chalk       = require('chalk'),
     Spinner     = require('clui').Spinner;
+
+clear();
+console.log(
+  chalk.green(
+    figlet.textSync('Here you go!', { horizontalLayout: 'full' })
+  )
+);
