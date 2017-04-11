@@ -114,3 +114,26 @@ function findMovie() {
                 
           
 }
+
+//Function that starts the application
+function startApp() {
+    inquirer.prompt([ {
+    type: 'list',
+    name: 'option',
+    message: 'What do you want to do?',
+    choices: [
+      'Search for a book (e.g: Things fall apart)',
+      'Search for a movie (e.g: The expendables)',
+    ]
+  } ]).then(function (answer) {
+
+        if(answer.option === 'Search for a book (e.g: Things fall apart)'){
+            findBook();
+        }
+
+        if(answer.option === 'Search for a movie (e.g: The expendables)'){
+            findMovie();
+        }
+
+    });
+}
